@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAU TANYA</title>
+    <!-- Google Fonts & Font Awesome -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(145deg, #fce4ec 0%, #f3c4d6 100%);
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .float-bg {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .float-bg span {
+            position: absolute;
+            display: block;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(2px);
+            animation: floatUp 18s infinite alternate ease-in-out;
+        }
+
+        .float-bg span:nth-child(1) { width: 180px; height: 180px; bottom: -60px; left: -40px; animation-duration: 20s; }
+        .float-bg span:nth-child(2) { width: 250px; height: 250px; top: -80px; right: -60px; animation-duration: 25s; animation-delay: 2s; }
+        .float-bg span:nth-child(3) { width: 120px; height: 120px; top: 40%; left: 80%; animation-duration: 15s; animation-delay: 1s; }
+        .float-bg span:nth-child(4) { width: 100px; height: 100px; bottom: 20%; left: 10%; animation-duration: 22s; animation-delay: 3s; }
+
+        @keyframes floatUp {
+            0% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 0.3; }
+            100% { transform: translate(-30px, -60px) scale(1.3) rotate(8deg); opacity: 0.6; }
+        }
+
+        .card {
+            position: relative;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.55);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-radius: 56px;
+            padding: 38px 30px 32px;
+            max-width: 540px;
+            width: 100%;
+            box-shadow: 0 30px 70px rgba(200, 50, 100, 0.25), 0 8px 24px rgba(0,0,0,0.04);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .avatar-wrap {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 18px;
+        }
+
+        .avatar-wrap .ring {
+            position: absolute;
+            inset: -6px;
+            border-radius: 50%;
+            border: 2px solid rgba(233, 30, 99, 0.2);
+            animation: spinRing 12s linear infinite;
+        }
+
+        @keyframes spinRing {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f06292, #d81b60);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 16px 36px rgba(233, 30, 99, 0.3);
+            border: 3px solid rgba(255, 255, 255, 0.8);
+            position: relative;
+            z-index: 2;
+        }
+
+        .avatar i {
+            font-size: 3.8rem;
+            color: white;
+            filter: drop-shadow(0 4px 12px rgba(0,0,0,0.1));
+        }
+
+        .greeting {
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: #880e4f;
+            letter-spacing: -0.5px;
+            margin-bottom: 4px;
+            text-shadow: 0 2px 12px rgba(233, 30, 99, 0.1);
+        }
+
+        .sub-greeting {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #7a4b5c;
+            background: rgba(255, 255, 255, 0.4);
+            display: inline-block;
+            padding: 4px 22px;
+            border-radius: 60px;
+            backdrop-filter: blur(4px);
+            margin-bottom: 22px;
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+
+        .step-container {
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(8px);
+            border-radius: 40px;
+            padding: 24px 18px 18px;
+            margin: 10px 0 16px;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            min-height: 150px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .step-question {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #311b24;
+            margin-bottom: 14px;
+            line-height: 1.5;
+        }
+
+        .step-question i {
+            color: #d81b60;
+            margin: 0 6px;
+        }
+
+        .step-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .step-options .opt-btn {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            padding: 12px 26px;
+            border-radius: 60px;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            color: #4a2c38;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+            flex: 1 0 auto;
+            min-width: 110px;
+            justify-content: center;
+        }
+
+        .step-options .opt-btn:hover {
+            transform: translateY(-3px);
+            background: white;
+            border-color: #ec407a;
+            box-shadow: 0 12px 28px rgba(233, 30, 99, 0.15);
+        }
+
+        .step-options .opt-btn.primary-opt {
+            background: linear-gradient(135deg, #f06292, #ec407a);
+            color: white;
+            border-color: rgba(255,255,255,0.3);
+            box-shadow: 0 10px 24px rgba(233, 30, 99, 0.25);
+        }
+
+        .step-options .opt-btn.primary-opt:hover {
+            background: linear-gradient(135deg, #ec407a, #d81b60);
+            box-shadow: 0 16px 36px rgba(233, 30, 99, 0.4);
+        }
+
+        .final-message {
+            margin-top: 18px;
+            padding: 18px 12px;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(8px);
+            border-radius: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            min-height: 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.4s ease;
+        }
+
+        .final-message .final-emoji {
+            font-size: 2.8rem;
+            line-height: 1.2;
+        }
+
+        .final-message .final-text {
+            font-weight: 600;
+            font-size: 1.05rem;
+            color: #3e2a33;
+            margin-top: 4px;
+        }
+
+        .final-message .auto-send {
+            font-size: 0.8rem;
+            color: #7a5a68;
+            background: rgba(255,255,255,0.3);
+            padding: 4px 18px;
+            border-radius: 40px;
+            margin-top: 8px;
+            font-weight: 500;
+            border: 1px solid rgba(255,255,255,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .final-message .auto-send.sent {
+            background: #25D366;
+            color: white;
+            border-color: #25D366;
+        }
+
+        .final-message .auto-send.sent i {
+            color: white;
+        }
+
+        .footer-note {
+            margin-top: 20px;
+            font-size: 0.75rem;
+            color: #7a5a68;
+            opacity: 0.6;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+
+        .footer-note i {
+            color: #e91e63;
+        }
+
+        .progress-dots {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .progress-dots .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(233, 30, 99, 0.2);
+            border: 1px solid rgba(255,255,255,0.5);
+            transition: all 0.3s ease;
+        }
+
+        .progress-dots .dot.active {
+            background: #ec407a;
+            box-shadow: 0 0 0 4px rgba(233, 30, 99, 0.15);
+            transform: scale(1.2);
+            border-color: #ec407a;
+        }
+
+        .progress-dots .dot.done {
+            background: #f8bbd0;
+            border-color: #f06292;
+        }
+
+        .notification-popup {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(37, 211, 102, 0.95);
+            color: white;
+            padding: 16px 32px;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 1rem;
+            box-shadow: 0 12px 40px rgba(37, 211, 102, 0.4);
+            z-index: 999;
+            display: none;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            animation: slideDown 0.5s ease;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateX(-50%) translateY(-100px); opacity: 0; }
+            to { transform: translateX(-50%) translateY(0); opacity: 1; }
+        }
+
+        .notification-popup i {
+            margin-right: 12px;
+            font-size: 1.4rem;
+        }
+
+        @media (max-width: 480px) {
+            .card { padding: 28px 16px; border-radius: 40px; }
+            .greeting { font-size: 2rem; }
+            .step-question { font-size: 1rem; }
+            .step-options .opt-btn { padding: 10px 16px; min-width: 90px; font-size: 0.9rem; }
+            .avatar { width: 80px; height: 80px; }
+            .avatar i { font-size: 3rem; }
+            .avatar-wrap { width: 80px; height: 80px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="notification-popup" id="notification">
+        <i class="fas fa-check-circle"></i>
+        <span id="notifText">Pesan terkirim!</span>
+    </div>
+
+    <div class="float-bg">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <div class="card">
+        <div class="avatar-wrap">
+            <div class="ring"></div>
+            <div class="avatar">
+                <i class="fas fa-heartbeat"></i>
+            </div>
+        </div>
+
+        <div class="greeting">🌷 Hai, Cill</div>
+        <div class="sub-greeting"><i class="fas fa-arrow-right"></i> ada yang ingin saya tanyakan <i class="fas fa-arrow-left"></i></div>
+
+        <div class="progress-dots" id="progressDots">
+            <span class="dot active" data-step="1"></span>
+            <span class="dot" data-step="2"></span>
+            <span class="dot" data-step="3"></span>
+            <span class="dot" data-step="4"></span>
+        </div>
+
+        <div class="step-container" id="stepContainer">
+            <div class="step-question" id="stepQuestion">💬 Apa kabar kamu hari ini?</div>
+            <div class="step-options" id="stepOptions">
+                <button class="opt-btn" data-value="baik">😊 Baik</button>
+                <button class="opt-btn" data-value="biasa">😐 Biasa aja</button>
+                <button class="opt-btn" data-value="kurang">😢 Kurang baik</button>
+            </div>
+        </div>
+
+        <div class="final-message" id="finalMessage">
+            <span class="final-emoji" id="finalEmoji">🌸</span>
+            <span class="final-text" id="finalText">Klik jawaban untuk memulai...</span>
+            <div class="auto-send" id="autoSendStatus">
+                <i class="fas fa-whatsapp"></i> Akan terkirim otomatis
+            </div>
+        </div>
+
+        <div class="footer-note">
+            <i class="fas fa-infinity"></i> dengan sepenuh hati <i class="fas fa-heart" style="color:#e91e63;"></i>
+        </div>
+    </div>
+
+    <script>
+        (function(){
+            // ----- KONFIGURASI -----
+            // GANTI DENGAN NOMOR WHATSAPP KAMU (tanpa +, hanya angka)
+            const MY_WHATSAPP_NUMBER = '6281234567890'; // <-- GANTI INI!
+            
+            // ----- STATE -----
+            const state = {
+                step: 1,
+                answer: {
+                    kabar: '',
+                    status: '',
+                    mauBalikan: ''
+                },
+                finalResult: null,
+                isSent: false,
+            };
+
+            // DOM refs
+            const stepQuestion = document.getElementById('stepQuestion');
+            const stepOptions = document.getElementById('stepOptions');
+            const progressDots = document.querySelectorAll('.dot');
+            const finalEmoji = document.getElementById('finalEmoji');
+            const finalText = document.getElementById('finalText');
+            const autoSendStatus = document.getElementById('autoSendStatus');
+            const notification = document.getElementById('notification');
+            const notifText = document.getElementById('notifText');
+
+            // ----- HELPER -----
+            function updateProgress(step) {
+                progressDots.forEach((dot, idx) => {
+                    const num = idx + 1;
+                    dot.classList.remove('active', 'done');
+                    if (num === step) dot.classList.add('active');
+                    else if (num < step) dot.classList.add('done');
+                });
+            }
+
+            function showNotification(message, isSuccess = true) {
+                notification.style.display = 'block';
+                notifText.textContent = message;
+                if (isSuccess) {
+                    notification.style.background = 'rgba(37, 211, 102, 0.95)';
+                    notification.querySelector('i').className = 'fas fa-check-circle';
+                } else {
+                    notification.style.background = 'rgba(233, 30, 99, 0.95)';
+                    notification.querySelector('i').className = 'fas fa-exclamation-circle';
+                }
+                setTimeout(() => {
+                    notification.style.display = 'none';
+                }, 4000);
+            }
+
+            // ----- SEND TO WA (AUTO) -----
+            function sendToWhatsApp() {
+                if (state.isSent) return;
+                if (!state.finalResult) return;
+
+                const kabar = state.answer.kabar || 'tidak dijawab';
+                const status = state.answer.status || 'tidak dijawab';
+                const mau = state.answer.mauBalikan || 'tidak dijawab';
+
+                let hasilText = '';
+                let emoji = '';
+                if (state.finalResult === 'terima') {
+                    hasilText = 'Aku mau balikan! ❤️';
+                    emoji = '🥰';
+                } else if (state.finalResult === 'tolak') {
+                    hasilText = 'Maaf, aku tidak mau balikan. 😔';
+                    emoji = '💔';
+                } else if (state.finalResult === 'pikir') {
+                    hasilText = 'Aku masih pikir-pikir dulu. 🤔';
+                    emoji = '🌿';
+                }
+
+                // PESAN DENGAN FORMAT BARU
+                const message = `Ini jawaban Ku:\n\n` +
+                                `📌 Kabar: ${getLabelKabar(kabar)}\n` +
+                                `📌 Status: ${getLabelStatus(status)}\n` +
+                                `📌 Balikan: ${getLabelMau(mau)}\n\n` +
+                                `💌 Hasil akhir: ${hasilText}`;
+
+                const encoded = encodeURIComponent(message);
+                const url = `https://wa.me/${MY_WHATSAPP_NUMBER}?text=${encoded}`;
+
+                window.open(url, '_blank');
+
+                state.isSent = true;
+                autoSendStatus.innerHTML = `<i class="fas fa-check-circle"></i> ✅ Pesan terkirim ke WhatsApp`;
+                autoSendStatus.classList.add('sent');
+                showNotification('✅ Pesan berhasil terkirim ke WhatsApp!', true);
+            }
+
+            function getLabelKabar(val) {
+                const map = { baik: 'Baik', biasa: 'Biasa aja', kurang: 'Kurang baik' };
+                return map[val] || val;
+            }
+
+            function getLabelStatus(val) {
+                const map = { sendiri: 'Masih sendiri', berpasangan: 'Sudah sama orang lain', bingung: 'Lagi bingung' };
+                return map[val] || val;
+            }
+
+            function getLabelMau(val) {
+                const map = { mau: 'Iya, mau!', tidak: 'Maaf, tidak', pikir: 'Pikir-pikir dulu' };
+                return map[val] || val;
+            }
+
+            // ----- RENDER STEP -----
+            function renderStep() {
+                const s = state.step;
+                updateProgress(s);
+                stepOptions.innerHTML = '';
+
+                if (s === 1) {
+                    stepQuestion.innerHTML = '💬 Apa kabar kamu hari ini?';
+                    addOptions([
+                        { label: '😊 Baik', value: 'baik' },
+                        { label: '😐 Biasa aja', value: 'biasa' },
+                        { label: '😢 Kurang baik', value: 'kurang' }
+                    ]);
+                } 
+                else if (s === 2) {
+                    stepQuestion.innerHTML = '🌹 Kamu masih sendiri atau sudah sama orang lain?';
+                    addOptions([
+                        { label: '💕 Masih sendiri', value: 'sendiri' },
+                        { label: '💑 Sudah sama orang lain', value: 'berpasangan' },
+                        { label: '🤷 Lagi bingung', value: 'bingung' }
+                    ]);
+                } 
+                else if (s === 3) {
+                    stepQuestion.innerHTML = '💖 Mau nggak kita balikan lagi?';
+                    addOptions([
+                        { label: '❤️ Iya, mau!', value: 'mau', primary: true },
+                        { label: '💔 Maaf, tidak', value: 'tidak', primary: false },
+                        { label: '🤔 Pikir-pikir dulu', value: 'pikir' }
+                    ]);
+                } 
+                else if (s === 4) {
+                    stepQuestion.innerHTML = '✨ Keputusan sudah diambil ✨';
+                    stepOptions.innerHTML = '';
+                }
+            }
+
+            function addOptions(options) {
+                options.forEach(opt => {
+                    const btn = document.createElement('button');
+                    btn.className = 'opt-btn' + (opt.primary ? ' primary-opt' : '');
+                    btn.setAttribute('data-value', opt.value);
+                    btn.textContent = opt.label;
+                    btn.addEventListener('click', () => handleAnswer(opt.value));
+                    stepOptions.appendChild(btn);
+                });
+            }
+
+            // ----- HANDLE ANSWER -----
+            function handleAnswer(value) {
+                const s = state.step;
+
+                if (s === 1) {
+                    state.answer.kabar = value;
+                    state.step = 2;
+                    renderStep();
+                    setFinalPreview('💬', 'Kabar: ' + getLabelKabar(value), 'Lanjut ke pertanyaan berikutnya...');
+                } 
+                else if (s === 2) {
+                    state.answer.status = value;
+                    state.step = 3;
+                    renderStep();
+                    setFinalPreview('🌹', 'Status: ' + getLabelStatus(value), 'Satu pertanyaan lagi...');
+                } 
+                else if (s === 3) {
+                    state.answer.mauBalikan = value;
+                    
+                    if (value === 'mau') {
+                        state.finalResult = 'terima';
+                    } else if (value === 'tidak') {
+                        state.finalResult = 'tolak';
+                    } else if (value === 'pikir') {
+                        state.finalResult = 'pikir';
+                    }
+                    
+                    state.step = 4;
+                    renderStep();
+                    showFinalMessage();
+                    
+                    setTimeout(() => {
+                        sendToWhatsApp();
+                    }, 800);
+                }
+            }
+
+            // ----- SHOW FINAL MESSAGE -----
+            function showFinalMessage() {
+                const result = state.finalResult;
+                let emoji, text;
+
+                if (result === 'terima') {
+                    emoji = '🥰💖';
+                    text = 'Kamu menerima! Saya Senang sekali 😭❤️';
+                } else if (result === 'tolak') {
+                    emoji = '💔😢';
+                    text = 'Kamu menolak... aku tetap menghargai keputusanmu.';
+                } else if (result === 'pikir') {
+                    emoji = '🤔🌿';
+                    text = 'Kamu masih pikir-pikir. Aku akan menunggumu.';
+                } else {
+                    emoji = '🌸';
+                    text = 'Terima kasih sudah menjawab.';
+                }
+
+                finalEmoji.textContent = emoji;
+                finalText.textContent = text;
+                autoSendStatus.innerHTML = `<i class="fas fa-spinner fa-pulse"></i> Mengirim pesan otomatis...`;
+            }
+
+            function setFinalPreview(emoji, text, auto) {
+                finalEmoji.textContent = emoji;
+                finalText.textContent = text;
+                autoSendStatus.innerHTML = `<i class="fas fa-clock"></i> ${auto}`;
+            }
+
+            // ----- INIT -----
+            function init() {
+                state.step = 1;
+                state.answer = { kabar: '', status: '', mauBalikan: '' };
+                state.finalResult = null;
+                state.isSent = false;
+                renderStep();
+                finalEmoji.textContent = '🌸';
+                finalText.textContent = 'Klik jawaban untuk memulai...';
+                autoSendStatus.innerHTML = '<i class="fas fa-whatsapp"></i> Akan terkirim otomatis';
+                autoSendStatus.classList.remove('sent');
+                updateProgress(1);
+            }
+
+            init();
+
+            console.log('🌹 Auto Send WhatsApp — pesan akan terkirim otomatis!');
+            console.log(`📱 Nomor tujuan: ${6282246543812}`);
+        })();
+    </script>
+</body>
+</html>
